@@ -16,11 +16,10 @@ void prompt()
  * @args: command arguments
  */
 
-void execute_command(char *command, char *args[])
+void execute_command(char *command, char *args[], char *custom_envp[])
 {
 	pid_t child_pid;
 	int status;
-	char *newenviron;
 
 	child_pid = fork();
 	if (child_pid == -1)
@@ -31,9 +30,7 @@ void execute_command(char *command, char *args[])
 
 	if (child_pid == 0)
 	{
-		newenviron[] = { NULL };
-
-		if (execve(command, args, newenviron) == -1)
+		if (execve(command, args, custom_envp) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
@@ -56,8 +53,15 @@ int shell_loop()
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t rchars = 0;
-	char *token, *command, *args[rchars];
+	char *token;
+	char *command;
+	char *args[MAX_ARG_COUNT];
 	int argCount = 0;
+
+	char *custom_envp[] = {
+		"PATH=/usr/bin:/bin",
+		NULL
+	};
 
 	while (rchars != -1)
 	{
@@ -75,19 +79,21 @@ int shell_loop()
 			if (token != NULL)
 			{
 				command = token;
-			
-				while ((token == strtok(NULL, " ")) != NULL)
+
+				while (argCount < MAX_ARG_COUNT - 1 && (token = strtok(NULL, " ")) != NULL)
 				{
-					args[argCount++] = token;
+					args[argCount] = token;
+					argCount++;
 				}
 				args[argCount] = NULL;
 
-				execute_command(command, args);
+				execute_command(command, args, custom_envp);
 			}
 		}
 		free(line);
 		line = NULL;
 	}
+	printf("\n");
 
 	free(line);
 

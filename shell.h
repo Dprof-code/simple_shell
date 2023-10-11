@@ -8,8 +8,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#define MAX_ARG_COUNT 5
+
 void prompt();
-void execute_command(char *command, char *args[]);
+void execute_command(char *command, char *args[], char *custom_envp[]);
 int shell_loop();
 
 #endif
