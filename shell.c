@@ -33,7 +33,7 @@ void execute_command(char *command, char *args[], char *custom_envp[])
 
 	if (child_pid == 0)
 	{
-		if (strcmp(command, "ls") == 0)
+		if ((strcmp(command, "ls") == 0) || (strcmp(command, "/bin/ls") == 0))
 		{
 			handle_ls();
 		}
@@ -101,8 +101,6 @@ int shell_loop()
 		free(line);
 		line = NULL;
 	}
-	printf("\n");
-
 	free(line);
 
 	return (rchars);

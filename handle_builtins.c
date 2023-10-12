@@ -7,7 +7,7 @@
 
 void handle_ls()
 {
-	char *ls_args[] = { "ls", NULL };
+	char *ls_args[] = { "/bin/ls", NULL };
 	char *ls_envp[] = { "PATH=/bin:/usr/bin", NULL };
 
 
