@@ -33,6 +33,11 @@ void execute_command(char *command, char *args[], char *custom_envp[])
 
 	if (child_pid == 0)
 	{
+		if (strcmp(command, "ls") == 0)
+		{
+			handle_ls();
+		}
+	
 		if (execve(command, args, custom_envp) == -1)
 		{
 			perror("execve");
@@ -62,7 +67,7 @@ int shell_loop()
 	int argCount = 0;
 
 	char *custom_envp[] = {
-		"PATH=/bin/ls",
+		"PATH=/usr/bin:/bin",
 		NULL
 	};
 

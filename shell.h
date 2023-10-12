@@ -14,4 +14,6 @@ void prompt();
 void execute_command(char *command, char *args[], char *custom_envp[]);
 int shell_loop();
 
+void handle_ls();
+
 #endif
