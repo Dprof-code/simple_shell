@@ -4,9 +4,12 @@
  * prompt - displays prompt
  */
 
-void prompt()
+void prompt(void)
 {
-	printf("$ ");
+	char *prompt = "$ ";
+
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, prompt, strlen(prompt));
 }
 
 /**
@@ -59,7 +62,7 @@ int shell_loop()
 	int argCount = 0;
 
 	char *custom_envp[] = {
-		"PATH=/usr/bin:/bin",
+		"PATH=/bin/ls",
 		NULL
 	};
 
