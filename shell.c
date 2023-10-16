@@ -29,7 +29,6 @@ char **parse_input(char *line)
 /**
  * execute_command - executes the entered commands
  *
- * @command: entered commands
  * @args: command arguments
  */
 
@@ -44,7 +43,6 @@ void execute_command(char *args[])
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-
 	if (child_pid == 0)
 	{
 		cmd = args[0];
@@ -55,7 +53,6 @@ void execute_command(char *args[])
 			perror("No such file or directory");
 			exit(EXIT_FAILURE);
 		}
-	
 		if (execve(passed_cmd, args, NULL) == -1)
 		{
 			perror("execve");
@@ -70,9 +67,10 @@ void execute_command(char *args[])
 }
 
 /**
- * shell_loop - calls the prompt function to display the prompt and calls functions to execute entered commands
+ * shell_loop - calls the prompt function to display the prompt
+ * and calls functions to execute entered commands
  *
- * return: 0
+ * Return: 0
  */
 
 int shell_loop(void)
@@ -113,9 +111,15 @@ int shell_loop(void)
 	return (0);
 }
 
+/**
+ * main - entry point of the shell program
+ *
+ * Return: 0
+ */
 int main(void)
 {
 	int result = shell_loop();
+
 	exit(EXIT_SUCCESS);
 	return (result);
 }
