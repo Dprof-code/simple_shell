@@ -23,4 +23,6 @@ void handle_args(char *input, char ***av_ptr);
 void handle_ls();
 void type_cd(char *args);
 void func_exit(void);
+
+void env(void);
 #endif

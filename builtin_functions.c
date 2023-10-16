@@ -1,5 +1,7 @@
   #include "shell.h"
- 
+  #include <unistd.h>  // Include for environ
+  #include <string.h>  // Include for strlen
+
   /* For the Cd funcion*/
   /* SO, what happens when the user types CD*/
 
@@ -42,9 +44,17 @@
 
 /*env prints the current  current environment*/
 
+extern char **environ;
+void env(void)
+{
+  char **print_env = environ;
+  size_t len = strlen(*print_env);
 
-  int _env(info_t *info)
+  while (*print_env != NULL)
   {
-    print_list_str(info->env);
-    return(0);
+    write(STDOUT_FILENO, *print_env, len);
+    write(STDOUT_FILENO, "\n", 1);
+    print_env++;
   }
+  
+}
