@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+
 #define MAX_ARG_COUNT 5
 
 void prompt();
@@ -20,5 +21,6 @@ int handle_builtins(char **argv);
 void handle_args(char *input, char ***av_ptr);
 
 void handle_ls();
-
+void type_cd(char *args);
+void func_exit(void);
 #endif
