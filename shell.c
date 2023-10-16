@@ -13,16 +13,30 @@ void prompt(void)
 }
 
 /**
+ * parse_input - Parse the user input into tokens
+ *
+ * @line: pointer to a character
+ * Return: Parsed arguments
+ */
+char **parse_input(char *line)
+{
+	char **argv = NULL;
+
+	handle_args(line, &argv);
+	return (argv);
+}
+
+/**
  * execute_command - executes the entered commands
  *
  * @command: entered commands
  * @args: command arguments
  */
 
-void execute_command(char *command, char *args[], char *custom_envp[])
+void execute_command(char *args[])
 {
+	char *cmd = NULL, *passed_cmd = NULL;
 	pid_t child_pid;
-	int status;
 
 	child_pid = fork();
 	if (child_pid == -1)
@@ -33,80 +47,73 @@ void execute_command(char *command, char *args[], char *custom_envp[])
 
 	if (child_pid == 0)
 	{
-		if ((strcmp(command, "ls") == 0) || (strcmp(command, "/bin/ls") == 0))
+		cmd = args[0];
+		passed_cmd = get_path(cmd);
+
+		if (passed_cmd == NULL)
 		{
-			handle_ls();
+			perror("No such file or directory");
+			exit(EXIT_FAILURE);
 		}
 	
-		if (execve(command, args, custom_envp) == -1)
+		if (execve(passed_cmd, args, NULL) == -1)
 		{
 			perror("execve");
+			free(passed_cmd);
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
 	{
-		waitpid(child_pid, &status, 0);
+		waitpid(child_pid, NULL, 0);
 	}
 }
 
 /**
- * shell_loop - calls the prompt function to display the prompt and calls the execute_command function to execute the entered commands on every line.
+ * shell_loop - calls the prompt function to display the prompt and calls functions to execute entered commands
  *
- * return: number of entered characters
+ * return: 0
  */
 
-int shell_loop()
+int shell_loop(void)
 {
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t rchars = 0;
-	char *token;
-	char *command;
-	char *args[MAX_ARG_COUNT];
-	int argCount = 0;
-
-	char *custom_envp[] = {
-		"PATH=/usr/bin:/bin",
-		NULL
-	};
+	char *line = NULL, **argv;
+	size_t buff = 0;
+	ssize_t rchars;
+	int i, status;
 
 	while (rchars != -1)
 	{
 		prompt();
-		rchars = getline(&line, &len, stdin);
+		rchars = getline(&line, &buff, stdin);
 
-		if (rchars != -1)
+		if (rchars ==  -1)
 		{
-			if (line[rchars - 1] == '\n')
-				line[rchars - 1] = '\0';
+			if (!feof(stdin))
+				perror("getline");
+			break;
+		}
 
+		argv = parse_input(line);
+		status = handle_builtins(argv);
 
-			token = strtok(line, " ");
-
-			if (token != NULL)
-			{
-				command = token;
-
-				while (argCount < MAX_ARG_COUNT - 1 && (token = strtok(NULL, " ")) != NULL)
-				{
-					args[argCount] = token;
-					argCount++;
-				}
-				args[argCount] = NULL;
-
-				execute_command(command, args, custom_envp);
-			}
+		if (argv != NULL)
+		{
+			for (i = 0; argv[i] != NULL; i++)
+				free(argv[i]);
+			free(argv);
 		}
 		free(line);
 		line = NULL;
+
+		if (status == -1)
+			break;
 	}
 	free(line);
-
-	return (rchars);
+	return (0);
 }
 
-int main()
+int main(void)
 {
 	int result = shell_loop();
 	exit(EXIT_SUCCESS);
