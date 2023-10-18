@@ -32,6 +32,8 @@ char **parse_input(char *line)
  * @args: command arguments
  */
 
+extern char **environ;
+
 void execute_command(char *args[])
 {
 	char *cmd = NULL, *passed_cmd = NULL;
@@ -53,7 +55,7 @@ void execute_command(char *args[])
 			perror("No such file or directory");
 			exit(EXIT_FAILURE);
 		}
-		if (execve(passed_cmd, args, NULL) == -1)
+		if (execve(passed_cmd, args, environ) == -1)
 		{
 			perror("execve");
 			free(passed_cmd);

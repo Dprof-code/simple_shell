@@ -11,20 +11,20 @@ int handle_builtins(char **argv)
 {
 	if (argv != NULL && argv[0] != NULL)
 	{
-		if (strcmp(argv[0], "exit") == 0)
+		if (_trcmp(argv[0], "exit") == 0)
 		{
 			/*call exit function*/
-			printf("exit function\n");
+			func_exit();
 		}
-		else if (strcmp(argv[0], "cd") == 0)
+		else if (_strcmp(argv[0], "cd") == 0)
 		{
 			/*call cd function*/
-			printf("cd function\n");
+			type_cd(argv);
 		}
-		else if (strcmp(argv[0], "env") == 0)
+		else if (_strcmp(argv[0], "env") == 0)
 		{
 			/*call env function*/
-			printf("env function\n");
+			env();
 		}
 		else
 		{
@@ -73,7 +73,7 @@ void handle_args(char *input, char ***av_ptr)
 			av = temp;
 		}
 
-		av[ac] = strdup(token);
+		av[ac] = _strdup(token);
 		if (av[ac] == NULL)
 		{
 			perror("strdup");
