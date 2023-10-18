@@ -27,7 +27,8 @@ void func_exit(void);
 void env(void);
 char *_strdup(char *str);
 int _strlen(char *s);
+
 int _strcmp(char *s1, char *s2);
-int _strcmp(char *s1, char *s2);
+char *_strcat(char *desc, char *src);
 
 #endif
