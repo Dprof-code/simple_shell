@@ -11,7 +11,25 @@ int handle_builtins(char **argv)
 {
 	if (argv != NULL && argv[0] != NULL)
 	{
-		execute_command(argv);
+		if (strcmp(argv[0], "exit") == 0)
+		{
+			/*call exit function*/
+			printf("exit function\n");
+		}
+		else if (strcmp(argv[0], "cd") == 0)
+		{
+			/*call cd function*/
+			printf("cd function\n");
+		}
+		else if (strcmp(argv[0], "env") == 0)
+		{
+			/*call env function*/
+			printf("env function\n");
+		}
+		else
+		{
+			execute_command(argv);
+		}
 	}
 
 	return (0);
