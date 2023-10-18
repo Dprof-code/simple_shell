@@ -5,7 +5,8 @@
 /* For the Cd funcion*/
 /* SO, what happens when the user types CD*/
 
-void type_cd(char *args) /* If the user does not pass any argument*/
+/**
+ * void type_cd(char *args) /* If the user does not pass any argument*/
 {
 	if (args == NULL)
 	{
@@ -33,7 +34,7 @@ void type_cd(char *args) /* If the user does not pass any argument*/
 		}
 	}
 }
-
+*/
 void func_exit(void)
 {
 	printf("\nExiting shell.....\n");

@@ -11,7 +11,7 @@ int handle_builtins(char **argv)
 {
 	if (argv != NULL && argv[0] != NULL)
 	{
-		if (_trcmp(argv[0], "exit") == 0)
+		if (_strcmp(argv[0], "exit") == 0)
 		{
 			/*call exit function*/
 			func_exit();
@@ -19,7 +19,7 @@ int handle_builtins(char **argv)
 		else if (_strcmp(argv[0], "cd") == 0)
 		{
 			/*call cd function*/
-			type_cd(argv);
+			/*type_cd(argv);*/
 		}
 		else if (_strcmp(argv[0], "env") == 0)
 		{
