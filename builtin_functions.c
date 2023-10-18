@@ -11,6 +11,7 @@ void type_cd(char *args) /* If the user does not pass any argument*/
 	{
 		char *go_home = getenv("HOME");
 
+<<<<<<< HEAD
       if (go_home == NULL)
       {
         perror("cd: HOME environment variable is not set\n");
@@ -33,6 +34,30 @@ void type_cd(char *args) /* If the user does not pass any argument*/
           }
     }
   }
+=======
+		if (go_home == NULL)
+		{
+			perror("cd: HOME environment variable is not set\n");
+		}
+		else
+		{
+			/* Take the user home */
+			if (chdir(go_home)!= 0)
+			{
+				perror("could not change directory");
+			}
+		}
+	}
+	else
+	{
+		/* If the user adds an argument*/
+		if (chdir(args) != 0)
+		{
+			perror("could not change directory");
+		}
+	}
+}
+>>>>>>> d330eeffd1f13a10d2a6c8abbb2b87037fba7015
 
 void func_exit(void)
 {

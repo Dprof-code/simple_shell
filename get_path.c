@@ -14,12 +14,12 @@ char *get_path(char *cmd)
 
 	if (path)
 	{
-		pathcopy = strdup(path);
-		cmd_length = strlen(cmd);
+		pathcopy = _strdup(path);
+		cmd_length = _strlen(cmd);
 		pathtok = strtok(pathcopy, ":");
 		while (pathtok != NULL)
 		{
-			dir_length = strlen(pathtok);
+			dir_length = _strlen(pathtok);
 			file_path = malloc(cmd_length + dir_length + 2);
 			if (file_path == NULL)
 			{
@@ -27,8 +27,8 @@ char *get_path(char *cmd)
 				exit(EXIT_FAILURE);
 			}
 			strcpy(file_path, pathtok);
-			strcat(file_path, "/");
-			strcat(file_path, cmd);
+			_strcat(file_path, "/");
+			_strcat(file_path, cmd);
 			if (stat(file_path, &buff) == 0)
 			{
 				free(pathcopy);
@@ -42,7 +42,7 @@ char *get_path(char *cmd)
 		}
 		free(pathcopy);
 		if (stat(cmd, &buff) == 0)
-			return (strdup(cmd));
+			return (_strdup(cmd));
 		return (NULL);
 	}
 	return (NULL);
