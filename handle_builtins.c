@@ -19,7 +19,7 @@ int handle_builtins(char **argv)
 		else if (_strcmp(argv[0], "cd") == 0)
 		{
 			/*call cd function*/
-			/*type_cd(argv);*/
+			type_cd(argv[1]);
 		}
 		else if (_strcmp(argv[0], "env") == 0)
 		{

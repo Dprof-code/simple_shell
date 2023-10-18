@@ -5,8 +5,7 @@
 /* For the Cd funcion*/
 /* SO, what happens when the user types CD*/
 
-/**
- * void type_cd(char *args) /* If the user does not pass any argument*/
+void type_cd(char *args) /* If the user does not pass any argument*/
 {
 	if (args == NULL)
 	{
@@ -19,7 +18,7 @@
 		else
 		{
 			/* Take the user home */
-			if (chdir(go_home != 0))
+			if (chdir(go_home)!= 0)
 			{
 				perror("could not change directory");
 			}
@@ -34,7 +33,7 @@
 		}
 	}
 }
-*/
+
 void func_exit(void)
 {
 	printf("\nExiting shell.....\n");
