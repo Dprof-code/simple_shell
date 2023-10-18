@@ -80,7 +80,7 @@ int shell_loop(void)
 	ssize_t rchars;
 	int i, status;
 
-	while (rchars != -1)
+	while (1)
 	{
 		prompt();
 		rchars = getline(&line, &buff, stdin);
