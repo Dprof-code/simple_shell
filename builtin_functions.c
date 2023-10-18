@@ -18,7 +18,7 @@
       else
       {
         /* Take the user home */
-        if (chdir(go_home != 0))
+        if (chdir(go_home) != 0)
         {
           perror("could not change directory");
         }
