@@ -1,7 +1,10 @@
 #include "shell.h"
 
-/* For the Cd funcion*/
-/* SO, what happens when the user types CD*/
+/**
+ * type_cd - CD Function
+ *
+ * @args: entered command
+ */
 
 void type_cd(char *args) /* If the user does not pass any argument*/
 {
@@ -31,9 +34,13 @@ void type_cd(char *args) /* If the user does not pass any argument*/
 		}
 	}
 }
+
+/**
+ * func_exit - exit function
+ */
 void func_exit(void)
 {
-	printf("\nExiting shell.....\n");
+	printf("Exiting shell.....\n");
 	/* Before exiting, it can sleep*/
 	sleep(2);
 	exit(0); /*exited succressfully here sha*/
@@ -41,7 +48,9 @@ void func_exit(void)
 
 /*env prints the current  current environment*/
 
-char **environ;
+/**
+ * env - prints current environment
+ */
 void env(void)
 {
 	char **print_env = environ;
