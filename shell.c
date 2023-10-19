@@ -9,7 +9,7 @@ void prompt(void)
 	char *prompt = "$ ";
 
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, prompt, strlen(prompt));
+		write(STDOUT_FILENO, prompt, _strlen(prompt));
 }
 
 /**
@@ -29,12 +29,10 @@ char **parse_input(char *line)
 /**
  * execute_command - executes the entered commands
  *
- * @args: command arguments
+ * @av: command arguments
  */
 
-extern char **environ;
-
-void execute_command(char *args[])
+void execute_command(char **av)
 {
 	char *cmd = NULL, *passed_cmd = NULL;
 	pid_t child_pid;
@@ -47,7 +45,7 @@ void execute_command(char *args[])
 	}
 	if (child_pid == 0)
 	{
-		cmd = args[0];
+		cmd = av[0];
 		passed_cmd = get_path(cmd);
 
 		if (passed_cmd == NULL)
@@ -55,7 +53,7 @@ void execute_command(char *args[])
 			perror("No such file or directory");
 			exit(EXIT_FAILURE);
 		}
-		if (execve(passed_cmd, args, environ) == -1)
+		if (execve(passed_cmd, av, NULL) == -1)
 		{
 			perror("execve");
 			free(passed_cmd);
@@ -64,7 +62,7 @@ void execute_command(char *args[])
 	}
 	else
 	{
-		waitpid(child_pid, NULL, 0);
+		wait(NULL);
 	}
 }
 
