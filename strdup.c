@@ -1,38 +1,46 @@
 #include "shell.h"
-#include <stddef.h>
-#include <stdlib.h>
 
 /**
-* _strdup - returns a pointer to a newly allocated
-*space in memory, which contains a copy of the
-*string given as a parameter.
-*@str:String to be copied
-*
-*Return: NULL in case of error, pointer to allocated
-*space
-*/
+ * _strdup -  returns a pointer to a new string
+ * which is a duplicate of the string str
+ * @str: given string
+ * Return: NULL, is str = NULL
+ * else return pointer to the duplicated string
+ * else return NULL if insufficient memory was available
+ */
 
 char *_strdup(char *str)
 {
-	char *cpy;
-	int index, len;
+	char *new_str;
+	int i;
 
 	if (str == NULL)
 		return (NULL);
 
-	for (index = 0; str[index]; index++)
-		len++;
-	cpy = malloc(sizeof(char) * (len + 1));
-
-	if (cpy == NULL)
+	new_str = malloc((length(str) + 1) * sizeof(char));
+	if (new_str == NULL)
 		return (NULL);
 
-	for (index = 0; str[index]; index++)
-	{
-		cpy[index] = str[index];
-	}
+	for (i = 0; str[i] != '\0'; i++)
+		new_str[i] = str[i];
+	new_str[i] = '\0';
 
-	cpy[len] = '\0';
+	return (new_str);
+}
 
-	return (cpy);
+/**
+ * length - counts a string
+ * @str: string
+ * Return: count
+ */
+
+int length(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+
+	return (i);
 }
