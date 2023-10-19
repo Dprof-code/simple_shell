@@ -1,26 +1,26 @@
 #include "shell.h"
+
 /**
- * _strcat - concatenates two strings,
- * @dest: destination.
- * @src: source.
- * Return: the pointer to dest.
+ * _strcat - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ *
+ * Return: pointer to resulting string
  */
-char *_strcat(char *desc, char *src)
+char *_strcat(char *dest, char *src)
 {
-	int count = 0, count2 = 0;
+	/* get length of char in dest string */
+	int len, i;
 
-	while (*(desc + count) != '\0')
-	{
-		count++;
-	}
+	len = 0;
+	while (dest[len] != '\0')
+		len++;
 
-	while (count2 >= 0)
+	for (i = 0; src[i] != '\0'; i++)
 	{
-		*(desc + count) = *(src + count2);
-		if (*(src + count2) == '\0')
-			break;
-		count++;
-		count2++;
+		dest[len] = src[i];
+		len++;
 	}
-	return (desc);
+	dest[len] = '\0';
+	return (dest);
 }

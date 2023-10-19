@@ -1,6 +1,4 @@
 #include "shell.h"
-#include <unistd.h> /* Include for environ* Include for strlen*/
-#include <string.h>
 
 /* For the Cd funcion*/
 /* SO, what happens when the user types CD*/

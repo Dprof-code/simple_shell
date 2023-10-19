@@ -26,7 +26,7 @@ char *get_path(char *cmd)
 				perror("malloc");
 				exit(EXIT_FAILURE);
 			}
-			strcpy(file_path, pathtok);
+			_strcpy(file_path, pathtok);
 			_strcat(file_path, "/");
 			_strcat(file_path, cmd);
 			if (stat(file_path, &buff) == 0)
