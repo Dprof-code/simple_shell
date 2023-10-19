@@ -31,7 +31,6 @@ void type_cd(char *args) /* If the user does not pass any argument*/
 		}
 	}
 }
-
 void func_exit(void)
 {
 	printf("\nExiting shell.....\n");
